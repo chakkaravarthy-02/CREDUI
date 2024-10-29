@@ -1,6 +1,10 @@
 package com.example.credassignment
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -56,7 +60,10 @@ fun BankScreen(
             .background(Color(0xFF1A1927))
             .padding(top = 2.dp, start = 2.dp, end = 2.dp)
     ) {
-        if (expanded) {
+        AnimatedVisibility(
+            visible = expanded,
+            enter = fadeIn(initialAlpha = 0.1f, animationSpec = tween(600))
+        ) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -79,7 +86,7 @@ fun BankScreen(
                         text = "amount will be credited to the bank account, Emi will also be debited from this bank account"
                     )
                     Spacer(modifier = Modifier.padding(16.dp))
-                    Box{
+                    Box {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             Image(
                                 contentScale = ContentScale.Crop,
@@ -132,7 +139,12 @@ fun BankScreen(
                     Text(text = "Tap for 1-click KYC")
                 }
             }
-        } else {
+        }
+        AnimatedVisibility(
+            visible = !expanded,
+            enter = fadeIn(initialAlpha = 0.1f, animationSpec = tween(durationMillis = 600)),
+            exit = fadeOut(targetAlpha = 0.1f, animationSpec = tween(600))
+        ) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()

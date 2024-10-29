@@ -5,6 +5,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -188,7 +192,10 @@ fun MainScreen(
             .background(Color(0xFF0f1418))
             .padding(top = 2.dp, start = 2.dp, end = 2.dp)
     ) {
-        if (expanded) {
+        AnimatedVisibility(
+            visible = expanded,
+            enter = fadeIn(initialAlpha = 0.1f, animationSpec = tween(600))
+        ) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -282,7 +289,12 @@ fun MainScreen(
                     Text(text = "Proceed to EMI selection")
                 }
             }
-        } else {
+        }
+        AnimatedVisibility(
+            visible = !expanded,
+            enter = fadeIn(initialAlpha = 0.1f, animationSpec = tween(durationMillis = 600)),
+            exit = fadeOut(targetAlpha = 0.1f, animationSpec = tween(600))
+        ) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
