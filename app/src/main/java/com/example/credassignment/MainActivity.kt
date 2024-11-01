@@ -68,7 +68,6 @@ fun MyApp(modifier: Modifier = Modifier) {
     var mainExpanded by rememberSaveable {
         mutableStateOf(true)
     }
-
     var emiExpanded by rememberSaveable {
         mutableStateOf(false)
     }
